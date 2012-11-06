@@ -30,8 +30,8 @@ if os.path.exists(configfile):
     classfilter = fd.read().split()
     fd.close()
 
-# levelno = logging.DEBUG
-levelno = logging.INFO
+levelno = logging.DEBUG
+# levelno = logging.INFO
 
 def setLevelNo(n):
     global levelno

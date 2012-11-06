@@ -24,14 +24,22 @@ import time
 import string
 import urllib
 import random
-
+import urllib2
+import threading
 
 try:
     import simplejson as json
 except ImportError:    
     import json
+    
+    
 
 from xdg import get_cache_file
+from logger import newLogger
+
+logger  = newLogger("utils")
+
+DEFAULT_TIMEOUT = 10
 
 def timestamp():
     return int(time.time() * 1000)
@@ -83,3 +91,29 @@ def parser_json(raw):
             data = {}
     return data    
 
+def download(remote_uri, local_uri, buffer_len=4096, timeout=DEFAULT_TIMEOUT):
+    try:
+        logger.logdebug("download %s starting...", remote_uri)
+        handle_read = urllib2.urlopen(remote_uri, timeout=timeout)
+        handle_write = open(local_uri, "w")
+        
+        data = handle_read.read(buffer_len)
+        handle_write.write(data)
+        
+        while data:
+            data = handle_read.read(buffer_len)
+            handle_write.write(data)
+            
+        handle_read.close()    
+        handle_write.close()
+        logger.logdebug("download %s finish." % remote_uri)
+    except Exception, e:
+        logger.loginfo("Error while downloading %s, %s", remote_uri, e)
+        try:
+            os.unlink(local_uri)
+        except:    
+            pass
+        return False
+    if not os.path.exists(local_uri):
+        return False
+    return True

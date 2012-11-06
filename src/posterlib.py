@@ -81,7 +81,7 @@ class Poster(Logger):
                   "tbm" : "isch", "source": "lnt", "sa": "X",
                   "ei": "06eXUJL3EuT3mAWBs4CgDA", "ved": "0CCQQpwUoBQ"}
         
-        print self.filter_image(self.api_request("search", "GET", extra_data=params))
+        return self.filter_image(self.api_request("search", "GET", extra_data=params))
         
         
     def filter_image(self, html):    
