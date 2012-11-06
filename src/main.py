@@ -41,7 +41,6 @@ class FetchImage(MissionThread):
         image_uri = image_poster.query_image(self.app_name)
         if image_uri:
             utils.download(image_uri, get_save_file(self.app_name))
-        
             
 if __name__ == "__main__":            
     import gtk

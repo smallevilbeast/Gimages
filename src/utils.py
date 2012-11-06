@@ -32,7 +32,9 @@ try:
 except ImportError:    
     import json
     
-    
+# import socks
+# socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 8080)
+# socket.socket = socks.socksocket
 
 from xdg import get_cache_file
 from logger import newLogger

@@ -7,7 +7,11 @@ import re
 import cookielib
 import time
     
-import socket    
+
+import socket
+# import socks
+# socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 8080)
+# socket.socket = socks.socksocket
 socket.setdefaulttimeout(40) # 40s
 
 import utils
@@ -82,6 +86,7 @@ class Poster(Logger):
                   "ei": "06eXUJL3EuT3mAWBs4CgDA", "ved": "0CCQQpwUoBQ"}
         
         return self.filter_image(self.api_request("search", "GET", extra_data=params))
+    
         
         
     def filter_image(self, html):    
@@ -93,4 +98,4 @@ class Poster(Logger):
         
 if __name__ == "__main__":        
     poster = Poster()
-    poster.query_image("amarok")
+    print poster.query_image("amarok")
